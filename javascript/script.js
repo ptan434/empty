@@ -1,15 +1,55 @@
 var i = 0;
 var j = 0;
 var k = 0;
+var o = 0;
 const cursor1 = document.querySelector(".animated-text1");
 const cake = document.querySelector(".fade");
 const balloonContainer = document.getElementById("balloon-container");
-var txt = ['Here is a cake for you!', 'Click on the candles!'];
+const box = document.getElementById("input");
+const btn = document.getElementById("btn-submit");
+var q = 'What is 1+1 ???'
+var txt = ['Thanks for answering, here is a cake for you!', 'Click on the flames!'];
 var speed = 100;
 var opct = 0;
+var op = 0;
 
 function startUp() {
-  setTimeout(triggerText, 3000);
+  setTimeout(question, 1500);
+}
+
+function question() {
+  if (o < q.length) {
+    document.getElementById('first').innerHTML += q.charAt(o);
+    o++;
+    setTimeout(question, speed);
+  }
+  else
+    display();
+}
+
+function display() {
+  op = op + 0.2;
+  if (op <= 1) {
+    box.style.setProperty('opacity', op);
+    btn.style.setProperty('opacity', op);
+    setTimeout(display, 100);
+  }
+}
+
+function submitted() {
+  box.remove();
+  btn.remove();
+  run();
+}
+
+function run() {
+  if (o >= 0) {
+    document.getElementById('first').innerHTML = q.slice(0, o);
+    o--;
+    setTimeout(submitted, 50);
+  }
+  else
+    triggerText();
 }
 
 function triggerText() {
@@ -23,14 +63,14 @@ function triggerText() {
       i++;
       if (i > txt[j].length)
         speed = 200;
-      setTimeout(triggerText, speed);
+      setTimeout(triggerText, 50);
     }
   }
   else {
     if (i >= 0) {
       document.getElementById('first').innerHTML = txt[j-1].slice(0, i);
       i--;
-      setTimeout(triggerText, speed);
+      setTimeout(triggerText, 50);
     }
     else {
       if (k < txt[j].length) {
